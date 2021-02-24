@@ -66,11 +66,8 @@
 		082C80FC25E69F9A0011286A /* RickAndMortyIOS */ = {
 			isa = PBXGroup;
 			children = (
+				082C813C25E6A64D0011286A /* UI */,
 				082C811225E6A0B20011286A /* Api */,
-				082C80FD25E69F9A0011286A /* AppDelegate.swift */,
-				082C80FF25E69F9A0011286A /* SceneDelegate.swift */,
-				082C810125E69F9A0011286A /* ViewController.swift */,
-				082C810325E69F9A0011286A /* Main.storyboard */,
 				082C810625E69F9B0011286A /* Assets.xcassets */,
 				082C810825E69F9B0011286A /* LaunchScreen.storyboard */,
 				082C810B25E69F9B0011286A /* Info.plist */,
@@ -104,6 +101,33 @@
 				082C811925E6A0EA0011286A /* NetworkManager.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		082C813C25E6A64D0011286A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				082C813E25E6A65A0011286A /* Views */,
+				082C813D25E6A6520011286A /* Controllers */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		082C813D25E6A6520011286A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				082C810125E69F9A0011286A /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		082C813E25E6A65A0011286A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				082C80FD25E69F9A0011286A /* AppDelegate.swift */,
+				082C80FF25E69F9A0011286A /* SceneDelegate.swift */,
+				082C810325E69F9A0011286A /* Main.storyboard */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
