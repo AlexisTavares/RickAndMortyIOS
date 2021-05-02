@@ -46,8 +46,8 @@
             filePath = "RickAndMortyIOS/UI/Controllers/CharacterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
