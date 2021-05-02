@@ -14,6 +14,21 @@ struct SerieCharacter : Hashable{
     let createdDate: Date
     let species : String
     let gender : String
+    
+    func contains(query: String?) -> Bool{
+        guard let query = query
+        else {
+            return true
+            
+        }
+        guard !query.isEmpty
+        else {
+            return true
+            
+        }
+        let lowerCasedQuery = query.lowercased()
+        return name.lowercased().contains(lowerCasedQuery)
+    }
 }
 
 extension SerieCharacter: Decodable{
@@ -22,7 +37,7 @@ extension SerieCharacter: Decodable{
         case name = "name"
         case imageURL = "image"
         case createdDate = "created"
-        case species
-        case gender
+        case species = "species"
+        case gender = "gender"
     }
 }
