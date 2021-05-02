@@ -44,8 +44,10 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
         getCharacters(url: nil)
     }
     
-    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.getCharacters(url: self.nextUrl)
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == serieCharacters.count - 1 {
+            self.getCharacters(url: self.nextUrl)
+        }
     }
     private func getCharacters(url: URL?){
         NetworkManager.shared.fetchCharacters(from: url) { (result) in
@@ -54,7 +56,7 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
                     print(error)
                     
                 case .success(let paginatedElements):
-                    self.serieCharacters = paginatedElements.decodedElements
+                    self.serieCharacters.append(contentsOf: paginatedElements.decodedElements)
                     self.nextUrl = paginatedElements.information.nextURL
                     let snapshot = self.createSnapshot(serieCharacters: self.serieCharacters)
                     
