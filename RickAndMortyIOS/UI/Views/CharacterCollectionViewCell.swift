@@ -10,13 +10,21 @@ import UIKit
 class CharacterCollectionViewCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet weak var genderIcon: UILabel!
     
     func setupWithCharacter(character: SerieCharacter){
-        imageView.loadImage(from: character.imageURL){
-            self.setNeedsLayout()
-        }
-        imageView.layer.cornerRadius = 15.0
-        imageView.clipsToBounds = true
+        imageView.loadImage(from: character.imageURL, completion: nil)
         nameLabel.text = character.name
+        switch character.gender{
+        case "Female":
+            genderIcon.text = "♀"
+            break
+        case "Male":
+            genderIcon.text = "♂"
+            break
+        default:
+            genderIcon.text = "?"
+            break
+        }
     }
 }
