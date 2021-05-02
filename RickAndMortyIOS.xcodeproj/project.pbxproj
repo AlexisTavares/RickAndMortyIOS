@@ -20,6 +20,7 @@
 		082C812025E6A1700011286A /* SerieCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C811D25E6A1700011286A /* SerieCharacter.swift */; };
 		082C812125E6A1700011286A /* PaginationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C811E25E6A1700011286A /* PaginationInformation.swift */; };
 		087B6108263EF974009EA43C /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087B6107263EF974009EA43C /* CharacterDetailViewController.swift */; };
+		087B6111263F1F78009EA43C /* CharacterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087B6110263F1F78009EA43C /* CharacterCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		082C811D25E6A1700011286A /* SerieCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerieCharacter.swift; sourceTree = "<group>"; };
 		082C811E25E6A1700011286A /* PaginationInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationInformation.swift; sourceTree = "<group>"; };
 		087B6107263EF974009EA43C /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
+		087B6110263F1F78009EA43C /* CharacterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				082C80FD25E69F9A0011286A /* AppDelegate.swift */,
 				082C80FF25E69F9A0011286A /* SceneDelegate.swift */,
 				082C810325E69F9A0011286A /* Main.storyboard */,
+				087B6110263F1F78009EA43C /* CharacterCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				082C80FE25E69F9A0011286A /* AppDelegate.swift in Sources */,
 				082C812125E6A1700011286A /* PaginationInformation.swift in Sources */,
 				081A3F2725EFBED4008CD4AD /* UIImageView+Additions.swift in Sources */,
+				087B6111263F1F78009EA43C /* CharacterCollectionViewCell.swift in Sources */,
 				082C810025E69F9A0011286A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
