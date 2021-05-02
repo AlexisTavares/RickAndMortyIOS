@@ -7,8 +7,9 @@
 
 import UIKit
 
-class CharacterViewController: UITableViewController, UISearchBarDelegate {
-    @IBOutlet weak var searchBar: UISearchBar!
+class CharacterViewController: UICollectionViewController, UISearchBarDelegate {
+    var searchController = UISearchController(searchResultsController: nil)
+
     private var serieCharacters : [SerieCharacter] = []
     private var sortedCharacters : [SerieCharacter] = []
     private var isSearchingCharacter = false
@@ -22,35 +23,34 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
         case character(SerieCharacter)
     }
     
-    private var diffableDataSource: UITableViewDiffableDataSource<Section, Item>!
+    private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
     override func viewDidLoad() {
+        self.navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
         super.viewDidLoad()
-        searchBar.delegate = self
-        diffableDataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { (tableView, indexPath, item) -> UITableViewCell? in
+
+        diffableDataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
             switch item {
                 case .character(let serieCharacter):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-                    cell.textLabel?.text = serieCharacter.name
-                    cell.imageView?.loadImage(from: serieCharacter.imageURL) {
-                        cell.setNeedsLayout()
-                    }
-                    cell.detailTextLabel?.text =  serieCharacter.species
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CharacterCollectionViewCell
+                    cell.setupWithCharacter(character: serieCharacter)
                     return cell
             }
         })
         
-        let snapshot = createSnapshot(serieCharacters: [])
+        let snapshot = createSnapshot(serieCharacters: serieCharacters)
         diffableDataSource.apply(snapshot)
-        
+
         getCharacters(url: nil)
     }
-    
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == serieCharacters.count - 1 {
             self.getCharacters(url: self.nextUrl)
         }
     }
+    
     private func getCharacters(url: URL?){
         NetworkManager.shared.fetchCharacters(from: url) { (result) in
             switch result {
@@ -68,6 +68,7 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
             }
         }
     }
+    
     private func createSnapshot(serieCharacters: [SerieCharacter]) -> NSDiffableDataSourceSnapshot<Section, Item> {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.characterSection])
@@ -95,7 +96,7 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
             diffableDataSource.apply(snapshot)
         }
         isSearchingCharacter = true
-        tableView.reloadData()
+        collectionView.reloadData()
     }
 }
 
@@ -106,11 +107,11 @@ extension CharacterViewController{
             let nav = segue.destination as! UINavigationController
             let characterDetailViewController = nav.topViewController as! CharacterDetailViewController
             if (isSearchingCharacter){
-                let selectedCharacter = sortedCharacters[tableView.indexPath(for: sender as! UITableViewCell)!.item]
+                let selectedCharacter = sortedCharacters[collectionView.indexPath(for: sender as! UICollectionViewCell)!.item]
                 characterDetailViewController.character = selectedCharacter
             }
             else{
-                let selectedCharacter = serieCharacters[tableView.indexPath(for: sender as! UITableViewCell)!.item]
+                let selectedCharacter = serieCharacters[collectionView.indexPath(for: sender as! UICollectionViewCell)!.item]
                 characterDetailViewController.character = selectedCharacter
             }
             break
