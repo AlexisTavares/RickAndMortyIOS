@@ -10,6 +10,7 @@ import UIKit
 class CharacterViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     private var serieCharacters : [SerieCharacter] = []
+    private var nextUrl: URL!
     
     private enum Section {
         case characterSection
@@ -40,13 +41,21 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
         let snapshot = createSnapshot(serieCharacters: [])
         diffableDataSource.apply(snapshot)
         
-        NetworkManager.shared.fetchCharacters { (result) in
+        getCharacters(url: nil)
+    }
+    
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.getCharacters(url: self.nextUrl)
+    }
+    private func getCharacters(url: URL?){
+        NetworkManager.shared.fetchCharacters(from: url) { (result) in
             switch result {
                 case .failure(let error):
                     print(error)
                     
                 case .success(let paginatedElements):
                     self.serieCharacters = paginatedElements.decodedElements
+                    self.nextUrl = paginatedElements.information.nextURL
                     let snapshot = self.createSnapshot(serieCharacters: self.serieCharacters)
                     
                     DispatchQueue.main.async {
@@ -55,7 +64,6 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
             }
         }
     }
-    
     private func createSnapshot(serieCharacters: [SerieCharacter]) -> NSDiffableDataSourceSnapshot<Section, Item> {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.characterSection])
@@ -81,10 +89,21 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
             let snapshot = createSnapshot(serieCharacters: tempCharacters)
             diffableDataSource.apply(snapshot)
         }
-        
-        
-        
         tableView.reloadData()
     }
+}
 
+extension CharacterViewController{
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "detail":
+            let nav = segue.destination as! UINavigationController
+            let characterDetailViewController = nav.topViewController as! CharacterDetailViewController
+            let selectedCharacter = serieCharacters[tableView.indexPath(for: sender as! UITableViewCell)!.item]
+            characterDetailViewController.character = selectedCharacter
+            break
+        default:
+            return
+        }
+    }
 }

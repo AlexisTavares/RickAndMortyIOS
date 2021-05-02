@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct PaginatinInformation {
+struct PaginationInformation {
     let count: Int
     let pages: Int
     let nextURL: URL?
     let previousURL: URL?
 }
 
-extension PaginatinInformation: Decodable {
+extension PaginationInformation: Decodable {
     enum CodingKeys: String, CodingKey {
         case count
         case pages

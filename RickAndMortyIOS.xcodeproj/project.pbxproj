@@ -19,6 +19,7 @@
 		082C811F25E6A1700011286A /* PaginatedElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C811C25E6A1700011286A /* PaginatedElements.swift */; };
 		082C812025E6A1700011286A /* SerieCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C811D25E6A1700011286A /* SerieCharacter.swift */; };
 		082C812125E6A1700011286A /* PaginationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C811E25E6A1700011286A /* PaginationInformation.swift */; };
+		087B6108263EF974009EA43C /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087B6107263EF974009EA43C /* CharacterDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		082C811C25E6A1700011286A /* PaginatedElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedElements.swift; sourceTree = "<group>"; };
 		082C811D25E6A1700011286A /* SerieCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerieCharacter.swift; sourceTree = "<group>"; };
 		082C811E25E6A1700011286A /* PaginationInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationInformation.swift; sourceTree = "<group>"; };
+		087B6107263EF974009EA43C /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				082C810125E69F9A0011286A /* CharacterViewController.swift */,
+				087B6107263EF974009EA43C /* CharacterDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				082C811625E6A0D50011286A /* NetworkError.swift in Sources */,
 				082C811F25E6A1700011286A /* PaginatedElements.swift in Sources */,
 				082C811A25E6A0EA0011286A /* NetworkManager.swift in Sources */,
+				087B6108263EF974009EA43C /* CharacterDetailViewController.swift in Sources */,
 				082C80FE25E69F9A0011286A /* AppDelegate.swift in Sources */,
 				082C812125E6A1700011286A /* PaginationInformation.swift in Sources */,
 				081A3F2725EFBED4008CD4AD /* UIImageView+Additions.swift in Sources */,

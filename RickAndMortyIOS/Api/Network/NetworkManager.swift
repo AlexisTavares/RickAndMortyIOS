@@ -26,8 +26,15 @@ class NetworkManager {
 
     // MARK: - Public Methods
 
-    func fetchCharacters(completion: @escaping (Result<PaginatedElements<SerieCharacter>, Error>) -> Void) {
-        let url = baseURL.appendingPathComponent("character")
+    func fetchCharacters(from requestUrl: URL?, completion: @escaping (Result<PaginatedElements<SerieCharacter>, Error>) -> Void) {
+        var url = baseURL
+        if (requestUrl != nil) {
+            url = requestUrl!
+        }
+        else{
+            url = baseURL.appendingPathComponent("character")
+        }
+        
         let request = URLRequest(url: url)
         let session = URLSession.shared
 

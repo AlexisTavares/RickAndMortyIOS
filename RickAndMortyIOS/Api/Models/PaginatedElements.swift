@@ -8,7 +8,7 @@
 import Foundation
 
 struct PaginatedElements<Element: Decodable> {
-    let information: PaginatinInformation
+    let information: PaginationInformation
     let decodedElements: [Element]
 }
 
