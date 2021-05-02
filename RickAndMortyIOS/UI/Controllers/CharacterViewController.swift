@@ -10,6 +10,8 @@ import UIKit
 class CharacterViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     private var serieCharacters : [SerieCharacter] = []
+    private var sortedCharacters : [SerieCharacter] = []
+    private var isSearchingCharacter = false
     private var nextUrl: URL!
     
     private enum Section {
@@ -44,8 +46,10 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
         getCharacters(url: nil)
     }
     
-    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.getCharacters(url: self.nextUrl)
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == serieCharacters.count - 1 {
+            self.getCharacters(url: self.nextUrl)
+        }
     }
     private func getCharacters(url: URL?){
         NetworkManager.shared.fetchCharacters(from: url) { (result) in
@@ -54,7 +58,7 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
                     print(error)
                     
                 case .success(let paginatedElements):
-                    self.serieCharacters = paginatedElements.decodedElements
+                    self.serieCharacters.append(contentsOf: paginatedElements.decodedElements)
                     self.nextUrl = paginatedElements.information.nextURL
                     let snapshot = self.createSnapshot(serieCharacters: self.serieCharacters)
                     
@@ -79,16 +83,18 @@ class CharacterViewController: UITableViewController, UISearchBarDelegate {
         
         if(searchText.isEmpty)
         {
+            isSearchingCharacter = false
             let snapshot = createSnapshot(serieCharacters: serieCharacters)
             diffableDataSource.apply(snapshot)
         }
         else {
-            let tempCharacters = serieCharacters.filter {
+            sortedCharacters = serieCharacters.filter {
                 $0.name.lowercased().contains(searchText.lowercased())
             }
-            let snapshot = createSnapshot(serieCharacters: tempCharacters)
+            let snapshot = createSnapshot(serieCharacters: sortedCharacters)
             diffableDataSource.apply(snapshot)
         }
+        isSearchingCharacter = true
         tableView.reloadData()
     }
 }
@@ -99,8 +105,14 @@ extension CharacterViewController{
         case "detail":
             let nav = segue.destination as! UINavigationController
             let characterDetailViewController = nav.topViewController as! CharacterDetailViewController
-            let selectedCharacter = serieCharacters[tableView.indexPath(for: sender as! UITableViewCell)!.item]
-            characterDetailViewController.character = selectedCharacter
+            if (isSearchingCharacter){
+                let selectedCharacter = sortedCharacters[tableView.indexPath(for: sender as! UITableViewCell)!.item]
+                characterDetailViewController.character = selectedCharacter
+            }
+            else{
+                let selectedCharacter = serieCharacters[tableView.indexPath(for: sender as! UITableViewCell)!.item]
+                characterDetailViewController.character = selectedCharacter
+            }
             break
         default:
             return
