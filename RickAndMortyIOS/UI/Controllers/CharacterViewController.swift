@@ -26,9 +26,12 @@ class CharacterViewController: UICollectionViewController, UISearchBarDelegate {
     private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         self.navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
-        super.viewDidLoad()
+        
+        collectionView.collectionViewLayout = createLayout()
 
         diffableDataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
             switch item {
@@ -97,6 +100,35 @@ class CharacterViewController: UICollectionViewController, UISearchBarDelegate {
         }
         isSearchingCharacter = true
         collectionView.reloadData()
+    }
+    
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { (section, environment) -> NSCollectionLayoutSection? in
+            let snapshot = self.diffableDataSource.snapshot()
+            let currentSection = snapshot.sectionIdentifiers[section]
+            
+            switch currentSection {
+            case .characterSection:
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
+                                                      heightDimension: .fractionalHeight(1.0))
+
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                       heightDimension: .absolute(150))
+
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                               subitem: item,
+                                                               count: 2)
+
+                let section = NSCollectionLayoutSection(group: group)
+                section.interGroupSpacing = 10
+
+                return section
+            }
+        })
+
+        return layout
     }
 }
 

@@ -12,11 +12,7 @@ class CharacterCollectionViewCell: UICollectionViewCell {
     @IBOutlet var nameLabel: UILabel!
     
     func setupWithCharacter(character: SerieCharacter){
-        imageView.loadImage(from: character.imageURL){
-            self.setNeedsLayout()
-        }
-        imageView.layer.cornerRadius = 15.0
-        imageView.clipsToBounds = true
+        imageView.loadImage(from: character.imageURL, completion: nil)
         nameLabel.text = character.name
     }
 }
